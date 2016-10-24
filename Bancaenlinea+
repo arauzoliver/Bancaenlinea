@@ -1,0 +1,254 @@
+/**
+ * Created by ARAUZOLIVER on 19/10/2016.
+ */
+
+import java.io.BufferedReader;
+import java.io.EOFException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Map;
+import java.util.TreeMap;
+
+
+
+    public class Menu {
+
+        public static void main(String... args){
+
+            Map<String,Cuenta> hash = new TreeMap<String,Cuenta>();
+            BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+            String A,B,D,E,E1,G,H,U;
+            float C=0,I=0,R=0;
+            int opc=0;
+
+            do {
+                try {
+                    System.out.println("\n\t\tBienvenido/a al Banco NoCompila");
+                    System.out.print("\nIntroduzca el numero de opcion deseada: \n");
+                    System.out.println("1) Crear cuenta");
+                    System.out.println("2) Depositar");
+                    System.out.println("3) Retirar");
+                    System.out.println("4) Transferir");
+                    System.out.println("5) Ver cuenta");
+                    System.out.println("6) Salir\n");
+                    opc = Integer.parseInt(br.readLine());
+                }catch (Exception e){
+                    System.err.println("Introduzca numeros");
+                    continue;
+                }
+                switch(opc){
+                    case 1:
+                        try {
+                            System.out.print("\nIngrese nombre: ");
+                            A = br.readLine();
+                            System.out.print("Ingrese numero de cuenta: ");
+                            B = br.readLine();
+                            System.out.print("Ingrese monto a depositar: ");
+                            C = Float.parseFloat(br.readLine());
+                            System.out.print("Ingrese un Nick o Usuario: ");
+                            U = br.readLine();
+                            System.out.print("Ingrese una contraseña: ");
+                            D = br.readLine();
+                            System.out.println("\nBienvenido Sr/a:  " + A + " su cuenta se ha creado satisfactoriamente!");
+                            hash.put(U, new Cuenta(A, B, C, D));
+                        }catch (IOException e){
+                            System.err.println("Error desconocido");
+                            continue;
+                        }
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            // Handle here
+                        }
+                        break;
+
+                    case 2:
+                        try {
+                            if (!hash.isEmpty()) {
+                                System.out.print("\nIntroduzca su Usuario o Nick: ");
+                                G = br.readLine();
+                                System.out.print("Introduza su contraseña: ");
+                                H = br.readLine();
+                                //System.out.println("\nEsta vacio? "+hash.isEmpty());
+                                for (Map.Entry<String, Cuenta> buscar : hash.entrySet()) {
+                                    String F = buscar.getKey();
+                                    Cuenta datos = buscar.getValue();
+                                    if (F.contentEquals(G) && !(datos.getPass().contentEquals(H))) {
+                                        System.out.println("\nContraseña inválida!");
+                                        break;
+                                    } else if ((!F.contentEquals(G)) && datos.getPass().contentEquals(H)) {
+                                        System.out.println("\nUsuario no existe");
+                                        break;
+                                    } else if (F.contentEquals(G) && datos.getPass().contentEquals(H)) {
+                                        System.out.println("\nBienvenido/a:  " + datos.toString());
+                                        System.out.print("\nIngrese el monto a depositar: ");
+                                        I = Float.parseFloat(br.readLine());
+                                        datos.depositar(I);
+                                        System.out.println("\nNuevo Saldo: " + datos.getSal());
+                                        break;
+                                }}
+
+                            } else {
+                                System.out.println("\nNo hay cuentas creadas");
+                            }
+                        }catch (IOException e){
+                            System.err.println("Error desconocido");
+                            continue;
+                        }
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            // Handle here
+                        }
+                        break;
+                    case 3:
+                        try {
+                            if (!hash.isEmpty()) {
+                                System.out.print("\nIntroduzca su Usuario o Nick: ");
+                                G = br.readLine();
+                                System.out.print("Introduza su contraseña: ");
+                                H = br.readLine();
+                                //System.out.println("\nEsta vacio? "+hash.isEmpty());
+                                for (Map.Entry<String, Cuenta> buscar : hash.entrySet()) {
+                                    String F = buscar.getKey();
+                                    Cuenta datos = buscar.getValue();
+                                    if (F.contentEquals(G) && !(datos.getPass().contentEquals(H))) {
+                                        System.out.println("\nContraseña inválida!");
+                                        break;
+                                    } else if ((!F.contentEquals(G)) && datos.getPass().contentEquals(H)) {
+                                        System.out.println("\nUsuario no existe");
+                                        break;
+                                    } else if (F.contentEquals(G) && datos.getPass().contentEquals(H)) {
+                                        System.out.println("\nBienvenido/a:  " + datos.toString());
+                                        System.out.print("\nIngrese el monto a retirar: ");
+                                        I=Float.parseFloat(br.readLine());
+                                        if (I <= datos.getSal()){
+                                            datos.retirar(I);
+                                        }else{
+                                            System.out.print("Fondos insuficientes");
+                                            continue;
+                                        }
+                                        System.out.println("\nNuevo Saldo: " + datos.getSal());
+                                        break;
+                                    }}
+
+                            } else {
+                                System.out.println("\nNo hay cuentas creadas");
+                            }
+                        }catch (IOException e){
+                            System.err.println("Error desconocido");
+                            continue;
+                        }
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            // Handle here
+                        }
+                        break;
+                    case 4:
+                        try {
+                            if (!hash.isEmpty()) {
+                                System.out.print("\nIntroduzca su Usuario o Nick: ");
+                                G = br.readLine();
+                                System.out.print("Introduza su contraseña: ");
+                                H = br.readLine();
+                                //System.out.println("\nEsta vacio? "+hash.isEmpty());
+                                for (Map.Entry<String, Cuenta> buscar : hash.entrySet()) {
+                                    String F = buscar.getKey();
+                                    Cuenta datos = buscar.getValue();
+                                    if (F.contentEquals(G) && !(datos.getPass().contentEquals(H))) {
+                                        System.out.println("\nContraseña inválida!");
+                                        break;
+                                    } else if ((!F.contentEquals(G)) && datos.getPass().contentEquals(H)) {
+                                        System.out.println("\nUsuario no existe");
+                                        break;
+                                    } else if (F.contentEquals(G) && datos.getPass().contentEquals(H)) {
+                                        System.out.println("\nBienvenido/a:  " + datos.toString());
+
+                                        System.out.print("\nIngrese el Nick o usuario a transferir: ");
+                                        E = br.readLine();
+                                        System.out.print("Ingrese el Numero de Cuenta a transferir: ");
+                                        E1 = br.readLine();
+                                        try {
+                                            System.out.print("Ingrese el monto a transferir: ");
+                                            I=Float.parseFloat(br.readLine());
+                                            if (I<=datos.getSal()){
+                                            datos.retirar(I);
+                                            }else{
+                                                System.out.print("Fondos insuficientes\n");
+                                                continue;
+                                            }
+                                        }catch (Exception e){
+                                            System.err.println("Introduzca numeros");
+                                            continue;
+                                        }
+                                        for (Map.Entry<String, Cuenta> trans : hash.entrySet()) {
+                                            String F2 = trans.getKey();
+                                            Cuenta tran = trans.getValue();
+                                            if (F2.contentEquals(E) && !(tran.getNum().contentEquals(E1))){
+                                                System.out.println("\nNumero de cuenta no coincide con el usuario");
+                                                break;
+                                            } else if ((!F2.contentEquals(E)) && tran.getNum().contentEquals(E1)){
+                                                System.out.println("\nLa cuenta no existe");
+                                                break;
+                                            } else if (F2.contentEquals(E) && tran.getNum().contentEquals(E1)){
+                                                tran.depositar(I);
+                                                System.out.println("\nTransferencia exitosa!");
+                                                System.out.println("\nNuevo Saldo: " + datos.getSal());
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }else {
+                                System.out.println("\nNo hay cuentas creadas");
+                            }
+                        }catch (IOException e){
+                            System.err.println("Error desconocido");
+                            continue;
+                        }
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            // Handle here
+                        }
+                        //System.exit(0);
+                        break;
+                    case 5:
+                        try {
+                            if (!hash.isEmpty()) {
+                                System.out.print("\nIntroduzca su Usuario o Nick: ");
+                                G = br.readLine();
+                                System.out.print("Introduza su contraseña: ");
+                                H = br.readLine();
+                                //System.out.println("\nEsta vacio? "+hash.isEmpty());
+                                for (Map.Entry<String, Cuenta> buscar : hash.entrySet()) {
+                                    String F = buscar.getKey();
+                                    Cuenta datos = buscar.getValue();
+                                    if (F.contentEquals(G) && !(datos.getPass().contentEquals(H))) {
+                                        System.out.println("\nContraseña inválida!");
+                                        break;
+                                    } else if ((!F.contentEquals(G)) && datos.getPass().contentEquals(H)) {
+                                        System.out.println("\nUsuario no existe");
+                                        break;
+                                    } else if (F.contentEquals(G) && datos.getPass().contentEquals(H)) {
+                                    System.out.println("\nBienvenido/a: " + datos.toString());
+                                    break;
+                                }
+                            }
+                        }else{
+                            System.out.println("\nNo hay cuentas creadas");}
+                        }catch (IOException e){
+                            System.err.println("Error desconocido");
+                            continue;
+                        }
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            // Handle here
+                        }
+                        break;
+                }
+            }while(opc!=6);
+            System.out.println();
+        }}
