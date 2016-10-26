@@ -1,0 +1,56 @@
+/**
+ * Created by SOLU BENEFICIOS on 19/10/2016.
+ */
+public class Cuenta {
+    String Nom;
+    String Num;
+    float Sal;
+    String Pass;
+
+    public Cuenta (String A, String B, float C, String D){
+        this.Nom = A;
+        this.Num = B;
+        this.Sal = C;
+        this.Pass = D;
+    }
+
+    public String getNom() {
+        return this.Nom;
+    }
+
+    public void setNom(String nom) {
+        Nom = nom;
+    }
+
+    public String getNum() {
+        return this.Num;
+    }
+
+    public void setNum(String num) {
+        Num = num;
+    }
+    public float getSal() {
+        return this.Sal;
+    }
+    public void setSal(float sal) {
+        Sal = sal;
+    }
+    public String getPass() {
+        return Pass;
+    }
+    public void setPass(String pass) {
+        Pass = pass;
+    }
+    public void depositar(float I) {
+        this.Sal = this.Sal+I;
+    }
+    public void retirar(float I) {
+        this.Sal = this.Sal-I;
+    }
+    @Override
+    public String toString()  {
+        return this.Nom  + "\nSaldo: " + this.Sal + "\nNumero de Cuenta: " + this.Num;
+    }
+
+
+}
